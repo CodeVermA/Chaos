@@ -21,20 +21,24 @@ class Polygon(object):
 
     def set_vetices_name(self, names:dict = None) -> None:
         self.vertices_name = self._create_vertices_name(len(self.edges)) if (names is None) else names
-
+          
     def display_vertices_name(self) -> None:
-        x_bounds = self.get_x_bounds()
-        y_bounds = self.get_y_bounds()
+        if (self.vertices_name is None):
+            self.set_vetices_name()
+            
+        max_x_val = self.get_x_bounds()[1]
+        max_y_val = self.get_y_bounds()[1]
+            
+        for name in self.vertices_name:
+            x, y = self.edges[self.vertices_name[name]][0]
+            
+            ha = "left"
+            va = "bottom"
 
-        if not (self.vertices_name is None):
+            if x < max_x_val/2: ha = "right"
+            if y < max_y_val/2: va = "top"
 
-            for name in self.vertices_name:
-                x, y = self.edges[self.vertices_name[name]][0]
-
-                text_x = x if x >= x_bounds[1] else x - 0.03
-                text_y = y if y >= y_bounds[1] else y - 0.03
-
-                pyplot.text(text_x, text_y, name, fontsize= 20, color="red")
+            pyplot.text(x, y, name, fontsize=15, color="red", ha=ha, va=va)
                             
     def contains(self, x:float, y:float) -> bool:
         """
