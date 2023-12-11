@@ -8,7 +8,7 @@ class Polygon(object):
 
     def __init__(self, sides:int= min_sides, edge_length:float = default_edge_length) -> None:
         # polygon can not have less than 3 sides
-        if sides < 3: sides = 3 
+        if sides < min_sides: sides = min_sides 
 
         self.edges = self._create_polygon(sides, edge_length)
         self.vertices_name = None
